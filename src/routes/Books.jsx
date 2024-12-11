@@ -11,10 +11,15 @@ import {
   Rating,
   Chip,
   Typography,
+  TextField,
 } from '@mui/material';
+
+
 
 function Books() {
   const [books, setBooks] = useState([]);
+  const [filteredBooks, setFilteredBooks] = useState([]);
+  const [searchTerm, setSearchTerm] = useState('');
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -23,23 +28,42 @@ function Books() {
     }
   }, []);
 
-  // TODO: Replace axios with useAxios hook
+  useEffect(() => {
+    // Here filtering of books based on the search term
+    const lowerCasedSearchTerm = searchTerm.toLowerCase();
+    const filtered = books.filter(
+      (book) =>
+        book.name.toLowerCase().includes(lowerCasedSearchTerm) ||
+        book.author.toLowerCase().includes(lowerCasedSearchTerm)
+    );
+    setFilteredBooks(filtered);
+  }, [searchTerm, books]);
+
   async function getBooks() {
     try {
       const response = await axios.get('http://localhost:3000/books');
       setBooks(response.data);
+      setFilteredBooks(response.data);
       setIsLoading(false);
     } catch (error) {
       console.error(error);
     }
   }
 
-  // TODO: Implement search functionality
   return (
     <Box sx={{ mx: 'auto', p: 2 }}>
       {isLoading && <CircularProgress />}
       {!isLoading && (
         <div>
+          <Box sx={{ mb: 3 }}>
+            <TextField
+              fullWidth
+              variant="outlined"
+              placeholder="Search books by name or author"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+            />
+          </Box>
           <Stack
             sx={{ justifyContent: 'space-around' }}
             spacing={{ xs: 1 }}
@@ -47,7 +71,7 @@ function Books() {
             useFlexGap
             flexWrap="wrap"
           >
-            {books.map((book) => (
+            {filteredBooks.map((book) => (
               <Card
                 sx={{
                   display: 'flex',
@@ -62,6 +86,8 @@ function Books() {
                   image={book.img}
                   title={book.name}
                 />
+
+
                 <Box sx={{ pt: 2, pl: 2 }}>
                   {book.genres.map((genre, i) => (
                     <Chip
