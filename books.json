@@ -4,10 +4,7 @@
       "id": 1,
       "author": "Antoine de Saint-Exupéry",
       "name": "The Little Prince",
-      "genres": [
-        "Fantasy",
-        "Adventure"
-      ],
+      "genres": ["Fantasy", "Adventure"],
       "completed": true,
       "start": "2023-03-10",
       "end": "2023-03-25",
@@ -18,10 +15,7 @@
       "id": 2,
       "author": "Walter Isaacson",
       "name": "Steve Jobs",
-      "genres": [
-        "Biography",
-        "Business"
-      ],
+      "genres": ["Biography", "Business"],
       "completed": true,
       "start": "2023-04-05",
       "end": "2023-04-30",
@@ -32,10 +26,7 @@
       "id": 3,
       "author": "George Orwell",
       "name": "1984",
-      "genres": [
-        "Science Fiction",
-        "Dystopian"
-      ],
+      "genres": ["Science Fiction", "Dystopian"],
       "completed": true,
       "start": "2023-05-10",
       "end": "2023-05-31",
@@ -46,22 +37,17 @@
       "id": 4,
       "author": "J.K. Rowling",
       "name": "Harry Potter and the Sorcerer's Stone",
-      "genres": [
-        "Fantasy",
-        "Adventure"
-      ],
+      "genres": ["Fantasy", "Adventure"],
       "completed": true,
       "start": "2023-06-15",
       "end": "2023-07-10",
       "stars": 5,
-      "img": "https://m.media-amazon.com/images/W/MEDIAX_792452-T2/images/I/61pX0NiXdvL._AC_.jpg"
+      "img": "https://www.suomalainen.com/cdn/shop/files/d0dce8bcd2824d22b515f639eb059ae59781338878929_1.jpg?v=1721098655"
     },
     {
       "author": "David JP Phillips",
       "name": "High on Life",
-      "genres": [
-        "Non-Fiction"
-      ],
+      "genres": ["Non-Fiction"],
       "completed": true,
       "start": null,
       "end": null,

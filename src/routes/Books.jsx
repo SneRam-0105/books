@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+import useAxios from '../services/useAxios';
 import {
   Box,
   Card,
@@ -16,23 +17,32 @@ import {
 function Books() {
   const [books, setBooks] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  // TODO: Replace axios with useAxios hook
+  const { data, get } = useAxios('http://localhost:3000'); //  A function from the useAxios hook to manually trigger a GET request to the API.
 
   useEffect(() => {
     if (books.length === 0) {
-      getBooks();
+      getBooks(); // Once the component Bookks gets loaded, check if the books state is empty (books.length === 0). If its empty, call the getBooks function which fetches the books.
     }
   }, []);
 
-  // TODO: Replace axios with useAxios hook
   async function getBooks() {
     try {
-      const response = await axios.get('http://localhost:3000/books');
-      setBooks(response.data);
-      setIsLoading(false);
+      await get('books');
     } catch (error) {
       console.error(error);
     }
   }
+
+  // here i am Updating State with data
+  useEffect(() => {
+    if (data) {
+      setBooks(data);
+      setIsLoading(false); // Sets isLoading to false, telling us that the data has been loaded.
+    }
+  }, [data]);
+  // React runs this effect whenever data changes.
+
 
   // TODO: Implement search functionality
   return (
