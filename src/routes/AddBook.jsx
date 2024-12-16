@@ -12,8 +12,9 @@ import { DateField } from '@mui/x-date-pickers/DateField';
 import useAxios from '../services/useAxios';
 import { bookGenres } from '../genres';
 import { Stack, Typography } from '@mui/material';
+import axios from 'axios';
 
-function AddBook() {
+function AddBook({ BookList }) {
   const { alert, post } = useAxios('http://localhost:3001');
   const [rateValue, setRateValue] = useState(3);
   const [book, setBook] = useState({
@@ -51,12 +52,33 @@ function AddBook() {
     }
   };
 
-  function postHandler() {
-    post('books', book);
-  }
+
+  const submitHandler = (e) => {
+    e.preventDefault();
+
+    axios
+      .post("http://localhost:3000/books", book)
+      .then((response) => {
+
+        BookList(response.data);
+        // Reset form fields
+        setBook({
+          author: '',
+          name: '',
+          genres: [],
+          completed: false,
+          start: null,
+          end: null,
+          stars: null,
+        });
+      })
+      .catch((error) => {
+        console.error("Error adding book:", error);
+      });
+  };
 
   return (
-    <form onChange={addBookHandler} onSubmit={postHandler}>
+    <form onChange={addBookHandler} onSubmit={submitHandler}>
       <Stack
         spacing={1}
         alignItems="stretch"
