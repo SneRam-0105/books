@@ -1,11 +1,13 @@
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import Button from '../components/button';
 import {
   Box,
   Card,
   CardActions,
   CardMedia,
-  Button,
+
   CircularProgress,
   Stack,
   Rating,
@@ -22,6 +24,11 @@ function Books() {
       getBooks();
     }
   }, []);
+  const navigate = useNavigate();
+  const handleNavigate = (id) => {
+    navigate(`/${id}`);
+  };
+
 
   // TODO: Replace axios with useAxios hook
   async function getBooks() {
@@ -93,6 +100,9 @@ function Books() {
                   />
                   <Button size="small">Learn More</Button>
                 </CardActions>
+
+                <button onClick={() => handleNavigate(books.id)}>See more</button>
+
               </Card>
             ))}
           </Stack>
