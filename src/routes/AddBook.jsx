@@ -12,10 +12,9 @@ import { DateField } from '@mui/x-date-pickers/DateField';
 import useAxios from '../services/useAxios';
 import { bookGenres } from '../genres';
 import { Stack, Typography } from '@mui/material';
-import axios from 'axios';
 
 function AddBook({ BookList }) {
-  const { alert, post } = useAxios('http://localhost:3001');
+  const { alert, post } = useAxios('http://localhost:3000');
   const [rateValue, setRateValue] = useState(3);
   const [book, setBook] = useState({
     author: '',
@@ -56,8 +55,7 @@ function AddBook({ BookList }) {
   const submitHandler = (e) => {
     e.preventDefault();
 
-    axios
-      .post("http://localhost:3000/books", book)
+    post("books", book)
       .then((response) => {
 
         BookList(response.data);
