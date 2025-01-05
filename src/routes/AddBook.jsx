@@ -14,6 +14,7 @@ import { bookGenres } from '../genres';
 import useAxios from '../services/useAxios';
 
 function AddBook({ BookList }) {
+  const { alert, post } = useAxios('http://localhost:3000');
   const [rateValue, setRateValue] = useState(3);
   const [book, setBook] = useState({
     author: '',
@@ -24,8 +25,6 @@ function AddBook({ BookList }) {
     end: null,
     stars: null,
   });
-
-  const { post, alert } = useAxios('http://localhost:3000');
 
   const genreChangeHandler = (event) => {
     const { value } = event.target;
@@ -44,23 +43,29 @@ function AddBook({ BookList }) {
     }
   };
 
-  const submitHandler = async (e) => {
+
+  const submitHandler = (e) => {
     e.preventDefault();
-    await post('books', book);
 
-    // Refresh the book list by invoking the callback with new data
-    BookList((prevList) => [...prevList, book]);
+    post("books", book)
+      .then((response) => {
 
-    // Reset form fields
-    setBook({
-      author: '',
-      name: '',
-      genres: [],
-      completed: false,
-      start: null,
-      end: null,
-      stars: null,
-    });
+        // Refresh the book list by invoking the callback with new data
+        BookList((prevList) => [...prevList, book]);
+        // Reset form fields
+        setBook({
+          author: '',
+          name: '',
+          genres: [],
+          completed: false,
+          start: null,
+          end: null,
+          stars: null,
+        });
+      })
+      .catch((error) => {
+        console.error("Error adding book:", error);
+      });
   };
 
   return (

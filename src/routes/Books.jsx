@@ -1,12 +1,14 @@
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import useAxios from '../services/useAxios';
+import Button from '../components/button';
 import {
   Box,
   Card,
   CardActions,
   CardMedia,
-  Button,
+
   CircularProgress,
   Stack,
   Rating,
@@ -30,6 +32,11 @@ function Books() {
       getBooks(); // Once the component Bookks gets loaded, check if the books state is empty (books.length === 0). If its empty, call the getBooks function which fetches the books.
     }
   }, []);
+  const navigate = useNavigate();
+  const handleNavigate = (id) => {
+    navigate(`/${id}`);
+  };
+
 
   useEffect(() => {
     // Here filtering of books based on the search term
@@ -143,6 +150,9 @@ function Books() {
                   />
                   <Button size="small">Learn More</Button>
                 </CardActions>
+
+                <button onClick={() => handleNavigate(books.id)}>See more</button>
+
               </Card>
             ))}
           </Stack>

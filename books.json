@@ -51,9 +51,30 @@
       "completed": true,
       "start": null,
       "end": null,
-      "stars": "5",
+      "stars": 5,
       "id": 5,
       "img": "https://www.davidjpphillips.com/wp-content/uploads/2023/08/highonlife_copy-195x300.jpg"
+    },
+    {
+      "author": "Sneha Ramalingam",
+      "name": "The Thorn Princess",
+      "genres": ["Fantasy"],
+      "completed": false,
+      "start": "12/16/4",
+      "end": null,
+      "stars": null,
+      "img": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQfZYXVQf9su69WHqY01MBEMESIjCKBXscUvA&s",
+      "id": 6
+    },
+    {
+      "author": "Ravinder Singh",
+      "name": "I too had a Love story",
+      "genres": ["Romance"],
+      "completed": true,
+      "start": "8/15/2024",
+      "end": "12/15/4",
+      "img": "https://m.media-amazon.com/images/I/81ilCcnwayL._SL1500_.jpg",
+      "id": 7
     }
   ]
 }
