@@ -16,6 +16,7 @@ import {
   Typography,
   TextField,
 } from '@mui/material';
+import defaultImage from "../assets/defaultImage.png"
 
 
 
@@ -53,7 +54,7 @@ function Books() {
     try {
       const response = await axios.get('http://localhost:3000/books');
       setBooks(response.data);
-      setFilteredBooks(response.data);
+      // setFilteredBooks(response.data);
       setIsLoading(false);
     } catch (error) {
       console.error(error);
@@ -114,7 +115,7 @@ function Books() {
               >
                 <CardMedia
                   sx={{ height: 250 }}
-                  image={book.img}
+                  image={book.img || defaultImage}
                   title={book.name}
                 />
 
@@ -157,8 +158,9 @@ function Books() {
             ))}
           </Stack>
         </div>
-      )}
-    </Box>
+      )
+      }
+    </Box >
   );
 }
 
