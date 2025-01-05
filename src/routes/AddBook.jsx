@@ -9,12 +9,11 @@ import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
 import Alert from '@mui/material/Alert';
 import { DateField } from '@mui/x-date-pickers/DateField';
-import useAxios from '../services/useAxios';
-import { bookGenres } from '../genres';
 import { Stack, Typography } from '@mui/material';
+import { bookGenres } from '../genres';
+import useAxios from '../services/useAxios';
 
-function AddBook() {
-  const { alert, post } = useAxios('http://localhost:3001');
+function AddBook({ BookList }) {
   const [rateValue, setRateValue] = useState(3);
   const [book, setBook] = useState({
     author: '',
@@ -26,19 +25,13 @@ function AddBook() {
     stars: null,
   });
 
+  const { post, alert } = useAxios('http://localhost:3000');
+
   const genreChangeHandler = (event) => {
     const { value } = event.target;
     setBook({
       ...book,
       genres: typeof value === 'string' ? value.split(',') : value,
-    });
-  };
-
-  const rateChangeHandler = (event) => {
-    const { value } = event.target;
-    setBook({
-      ...book,
-      stars: value,
     });
   };
 
@@ -51,12 +44,27 @@ function AddBook() {
     }
   };
 
-  function postHandler() {
-    post('books', book);
-  }
+  const submitHandler = async (e) => {
+    e.preventDefault();
+    await post('books', book);
+
+    // Refresh the book list by invoking the callback with new data
+    BookList((prevList) => [...prevList, book]);
+
+    // Reset form fields
+    setBook({
+      author: '',
+      name: '',
+      genres: [],
+      completed: false,
+      start: null,
+      end: null,
+      stars: null,
+    });
+  };
 
   return (
-    <form onChange={addBookHandler} onSubmit={postHandler}>
+    <form onChange={addBookHandler} onSubmit={submitHandler}>
       <Stack
         spacing={1}
         alignItems="stretch"
@@ -112,10 +120,10 @@ function AddBook() {
           <Rating
             name="stars"
             value={rateValue}
-            onClick={rateChangeHandler}
             size="large"
             onChange={(event, newValue) => {
               setRateValue(newValue);
+              setBook({ ...book, stars: newValue });
             }}
           />
         </Stack>
