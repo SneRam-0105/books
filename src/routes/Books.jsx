@@ -33,10 +33,11 @@ function Books() {
       getBooks(); // Once the component Bookks gets loaded, check if the books state is empty (books.length === 0). If its empty, call the getBooks function which fetches the books.
     }
   }, []);
+
   const navigate = useNavigate();
-  const handleNavigate = (id) => {
-    navigate(`/${id}`);
-  };
+  // const handleNavigate = (id) => {
+  //   navigate(`/${id}`);
+  // };
 
 
   useEffect(() => {
@@ -71,14 +72,7 @@ function Books() {
   // React runs this effect whenever data changes.
 
 
-  // here i am Updating State with data
-  useEffect(() => {
-    if (data) {
-      setBooks(data);
-      setIsLoading(false); // Sets isLoading to false, telling us that the data has been loaded.
-    }
-  }, [data]);
-  // React runs this effect whenever data changes.
+
 
   // TODO: Implement search functionality
 
@@ -152,7 +146,7 @@ function Books() {
                   <Button size="small">Learn More</Button>
                 </CardActions>
 
-                <button onClick={() => handleNavigate(books.id)}>See more</button>
+                <button onClick={() => navigate(`/book/${book.id}`)}>See more</button>
 
               </Card>
             ))}

@@ -13,7 +13,7 @@ import { Stack, Typography } from '@mui/material';
 import { bookGenres } from '../genres';
 import useAxios from '../services/useAxios';
 
-function AddBook({ BookList }) {
+function AddBook() {
   const { alert, post } = useAxios('http://localhost:3000');
   const [rateValue, setRateValue] = useState(3);
   const [book, setBook] = useState({
@@ -44,14 +44,32 @@ function AddBook({ BookList }) {
   };
 
 
+  // const validateForm = () => {
+
+
+
+  //   if (!book.name && !book.author && !book.img && !book.completed && !book.genres && !book.stars && !book.stars) {
+  //     return false;
+  //   }
+
+  //   else {
+  //     return true;
+
+  //   }
+
+  // }
   const submitHandler = (e) => {
     e.preventDefault();
+    e.target.reset();
+
+
+
 
     post("books", book)
       .then((response) => {
 
         // Refresh the book list by invoking the callback with new data
-        BookList((prevList) => [...prevList, book]);
+        // BookList((prevList) => [...prevList, book]);
         // Reset form fields
         setBook({
           author: '',
@@ -66,7 +84,8 @@ function AddBook({ BookList }) {
       .catch((error) => {
         console.error("Error adding book:", error);
       });
-  };
+  }
+
 
   return (
     <form onChange={addBookHandler} onSubmit={submitHandler}>
@@ -84,18 +103,21 @@ function AddBook({ BookList }) {
           id="outlined-basic"
           label="Title"
           variant="outlined"
+          value={book.name}
         />
         <TextField
           name="author"
           id="outlined-basic"
           label="Author"
           variant="outlined"
+          value={book.author}
         />
         <TextField
           name="img"
           id="outlined-basic"
           label="Image (url)"
           variant="outlined"
+          value={book.img}
         />
         <Select
           labelId="demo-multiple-name-label"

@@ -6,6 +6,7 @@ import Root from './routes/Root';
 import Books from './routes/Books';
 import Book from './routes/Book';
 import AddBook from './routes/AddBook';
+import SinglePage from './routes/SinglePage';
 
 const theme = createTheme({
   palette: {
@@ -25,7 +26,7 @@ function App() {
       element: <Root />,
       children: [
         { path: '/', element: <Books /> },
-        { path: '/book', element: <Book /> },
+        { path: '/book/:id', element: <SinglePage /> },
         { path: '/addnew', element: <AddBook /> },
       ],
     },
