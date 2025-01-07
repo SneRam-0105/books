@@ -34,13 +34,13 @@ function AddBook() {
     });
   };
 
-  const rateChangeHandler = (event) => {
-    const { value } = event.target;
-    setBook({
-      ...book,
-      stars: value,
-    });
-  };
+  // const rateChangeHandler = (event) => {
+  //   const { value } = event.target;
+  //   setBook({
+  //     ...book,
+  //     stars: value,
+  //   });
+  // };
 
   const addBookHandler = (e) => {
     const { name, value, checked, type } = e.target;
