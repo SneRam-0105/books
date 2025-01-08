@@ -34,6 +34,14 @@ function AddBook() {
     });
   };
 
+  // const rateChangeHandler = (event) => {
+  //   const { value } = event.target;
+  //   setBook({
+  //     ...book,
+  //     stars: value,
+  //   });
+  // };
+
   const addBookHandler = (e) => {
     const { name, value, checked, type } = e.target;
     if (type === 'checkbox' && name === 'completed') {
@@ -144,16 +152,26 @@ function AddBook() {
         <DateField name="start" label="Started" />
         <DateField name="end" label="Finished" disabled={!book.completed} />
         <Stack spacing={1}>
+          {/* We are using this typography snippet here to display the current rating first */}
+          <Typography variant="subtitle1">
+            {rateValue !== null ? `Rating: ${rateValue}` : 'No rating selected'}
+          </Typography>
           <Rating
             name="stars"
             value={rateValue}
             size="large"
             onChange={(event, newValue) => {
-              setRateValue(newValue);
+              setRateValue(newValue); // Updates the rateValue state
               setBook({ ...book, stars: newValue });
+            }}
+            onChangeActive={(event, newHover) => {
+              if (newHover !== -1) {
+                setRateValue(newHover); // Updates rating dynamically on mouseover
+              }
             }}
           />
         </Stack>
+
         <Button variant="contained" type="submit">
           Add new
         </Button>

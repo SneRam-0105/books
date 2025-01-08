@@ -4,8 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import { useEffect } from "react";
 import Button from "../components/button";
-
-
+import defaultImage from "../assets/defaultImage.png";
 
 const SinglePage = () => {
     const { id } = useParams();
@@ -20,42 +19,82 @@ const SinglePage = () => {
         return <div>Loading...</div>;
     }
 
-
     return (
-
-        <div style={{ padding: "20px", fontFamily: "Arial" }}>
-            <h1>Book Details</h1>
+        <div
+            style={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                minHeight: "100vh",
+                backgroundColor: "#f4f4f9",
+                fontFamily: "Arial, sans-serif",
+                padding: "20px",
+            }}
+        >
             {data ? (
-                <ul style={{ listStyle: "none", padding: 0 }}>
-                    {
+                <div
+                    style={{
+                        maxWidth: "500px",
+                        width: "100%",
+                        border: "1px solid #ddd",
+                        borderRadius: "10px",
+                        backgroundColor: "#ffffff",
+                        boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
+                        overflow: "hidden",
+                        textAlign: "center",
+                    }}
+                >
+                    {/* Image */}
+                    <img
+                        src={data.img || defaultImage}
+                        alt={data.name}
+                        style={{
+                            width: "100%",
+                            height: "auto",
+                        }}
+                    />
 
-                        <li
-                            key={data.id}
+                    {/* Content */}
+                    <div style={{ padding: "20px" }}>
+                        <h2 style={{ marginBottom: "10px" }}>{data.name}</h2>
+                        <p style={{ color: "#555", marginBottom: "10px" }}>
+                            <strong>Author:</strong> {data.author}
+                        </p>
+                        <p style={{ color: "#555", marginBottom: "10px" }}>
+                            <strong>Genre:</strong> {data.genres}
+                        </p>
+                        <p style={{ color: "#555", marginBottom: "10px" }}>
+                            <strong>Rating:</strong> {data.stars}
+                        </p>
+                        <p style={{ color: "#555", marginBottom: "10px" }}>
+                            <strong>Start Date:</strong> {new Date(data.start).toLocaleDateString()}
+                        </p>
+                        <p style={{ color: "#555", marginBottom: "10px" }}>
+                            <strong>End Date:</strong> {new Date(data.end).toLocaleDateString()}
+                        </p>
+                        <Button
+                            onClick={() => navigate(-1)}
                             style={{
-                                padding: "15px",
-                                margin: "10px 0",
-                                border: "1px solid #ddd",
+                                marginTop: "20px",
+                                padding: "10px 20px",
+                                backgroundColor: "#007BFF",
+                                color: "#ffffff",
+                                border: "none",
                                 borderRadius: "5px",
-                                backgroundColor: "#f9f9f9",
+                                cursor: "pointer",
+                                fontSize: "16px",
                             }}
                         >
-                            <p><strong>ID:</strong> {data.id}</p>
-                            <p><strong>Author:</strong> {data.author}</p>
-                            <p><strong>Name:</strong> {data.name}</p>
-                            <p><strong>Genre:</strong> {data.genres}</p>
-                            <p><strong>Start Date:</strong> {new Date(data.start).toLocaleDateString()}</p>
+                            Back
+                        </Button>
 
-
-
-                        </li>
-                    }
-                </ul>
+                    </div>
+                </div>
             ) : (
                 <p>No Book data available</p>
             )}
-            <Button onClick={() => navigate(-1)} />
         </div>
     );
-}
+};
 
 export default SinglePage;

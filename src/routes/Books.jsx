@@ -143,10 +143,34 @@ function Books() {
                     readOnly
                     size="small"
                   />
-                  <Button size="small">Learn More</Button>
+                  <Button size="small">
+                    <a
+                      href="https://en.wikipedia.org/wiki/The_Little_Prince"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      style={{ textDecoration: "none", color: "inherit" }}
+                    >
+                      Learn More
+                    </a>
+                  </Button>
+
                 </CardActions>
 
-                <button onClick={() => navigate(`/book/${book.id}`)}>See more</button>
+                <button
+                  onClick={() => navigate(`/book/${book.id}`)}
+                  style={{
+                    backgroundColor: "darkgreen",
+                    color: "white",
+                    fontSize: "18px",
+                    padding: "10px 20px",
+                    border: "none",
+                    borderRadius: "5px",
+                    cursor: "pointer",
+                  }}
+                >
+                  See more
+                </button>
+
 
               </Card>
             ))}
